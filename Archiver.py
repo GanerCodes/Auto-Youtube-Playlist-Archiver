@@ -18,7 +18,7 @@ beforeList = getList()
 
 currentProcesses = [
 	subprocess.Popen([
-		"youtube-dl", "-q", "--no-progress", "--download-archive", 
+		"yt-dlp", "-q", "--no-progress", "--download-archive", 
 		f"{i[0]}/archive.txt", "--embed-thumbnail", "--no-post-overwrites", "-ciw", "-x", "-f", "bestaudio", "--audio-format", "mp3",
 		"--cookies", "cookies.txt", "-o", f"{i[0]}/%(title)s_%(id)s.%(ext)s", i[1]]
 	) for i in playlists
