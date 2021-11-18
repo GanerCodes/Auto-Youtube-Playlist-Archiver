@@ -1,4 +1,4 @@
-import json, re, subprocess, os, sys, requests
+import os, re, sys, json, requests, subprocess
 # os.chdir(os.path.split(os.path.abspath(sys.argv[0]))[0])
 
 config = json.load(open("config.json"))
