@@ -1,3 +1,5 @@
 `pip install -r requirements.txt` to install, `python Archiver.py` to run
 
-Might want to get ffmpeg as well
+Adding a cookies.txt lets you have logins and whatnot
+
+Might want to get ffmpeg as well as the downloader wants it
