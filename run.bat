@@ -1,2 +1,0 @@
-python Archiver.py
-exit

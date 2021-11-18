@@ -1,10 +1,10 @@
-import re, subprocess, os, sys, requests
+import json, re, subprocess, os, sys, requests
 os.chdir(os.path.split(os.path.abspath(sys.argv[0]))[0])
 
-playlists = [
-    ["ASMR" , r"https://www.youtube.com/playlist?list=PLs7rJHK2mHjFBC81khLn18dBGZTbzbktN"],
-    ["Music", r"https://www.youtube.com/playlist?list=PLs7rJHK2mHjG4ye8Lu85-3AIQmgvSsGV4"]
-]
+config = json.load(open("config.json"))
+webhook_url = config["discord_webhook_url"]
+playlists = [[i, v] for i, v in config['playlists'].items()]
+
 playlists = [[i[0], re.sub(r"watch\?v=.{5,}&(?=list)", "playlist?", i[1])] for i in playlists]
 
 currentDirs = os.listdir()
@@ -30,7 +30,7 @@ afterList = getList()
 url = "DISCORD WEBHOOK URL"
 j = requests.post(url, data = {
     'Content-type': 'application/json',
-    "username": "Funny bot",
+    "username": "Joe",
     "avatar_url": "https://upload.wikimedia.org/wikipedia/en/9/9a/Trollface_non-free.png",
     "content": '\n'.join(f"Downloaded {afterList[i][1] - beforeList[i][1]} new videos to playlist {v[0]}" for i, v in enumerate(beforeList))
 })
