@@ -3,6 +3,7 @@ import os, re, sys, json, requests, subprocess
 
 config = json.load(open("config.json"))
 webhook_url = config["discord_webhook_url"]
+cookies_path = config['cookies']
 
 playlists = [[i, v] for i, v in config['playlists'].items()]
 playlists = [[i[0], re.sub(r"watch\?v=.{5,}&(?=list)", "playlist?", i[1])] for i in playlists]
@@ -22,7 +23,7 @@ def downloader(i):
     return subprocess.Popen([
 		"yt-dlp", "-q", "--no-progress", "--download-archive", 
 		f"{i[0]}/archive.txt", "--embed-thumbnail", "--no-post-overwrites", "-ciw",
-        "-x", "-f", "bestaudio", "--audio-format", "mp3", "--cookies", "cookies.txt",
+        "-x", "-f", "bestaudio", "--audio-format", "mp3", "--cookies", cookies_path,
         "-o", f"{i[0]}/%(title)s_%(id)s.%(ext)s", i[1]
     ])
 

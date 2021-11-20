@@ -1,5 +1,6 @@
 {
-	"discord_webhook_url": "INSERT HERE",
+	"discord_webhook_url": "discordTokenBlahblahblah",
+	"cookies": "cookies.txt",
 	"playlists": {
 		"ASMR" : "https://www.youtube.com/playlist?list=PLs7rJHK2mHjFBC81khLn18dBGZTbzbktN",
 		"Music": "https://www.youtube.com/playlist?list=PLs7rJHK2mHjG4ye8Lu85-3AIQmgvSsGV4"
