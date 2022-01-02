@@ -36,11 +36,13 @@ def generateLink(playlist):
     if not access_token:
         return
     
-    return requests.post("https://ganer.xyz/shortenURL", headers = {
+    URL = requests.post("https://ganer.xyz/shortenURL", headers = {
         "localpath": "true",
         "access": access_token,
         "url": f"/e/playlists/{playlist}"
-    }).content.decode() + ' '
+    }).content.decode()
+    
+    return f'''\nhttps://ganer.xyz/comic#{URL}\n'''
 
 beforeList = getList()
 for p in [(downloader(i), i) for i in playlists]: waitDownload(*p)
@@ -50,7 +52,7 @@ message = ""
 for i, v in enumerate(beforeList):
     if not (count := afterList[i][1] - beforeList[i][1]):
         pass #continue
-    message += f"Downloaded {count} new videos to playlist {v[0]} {generateLink(v[0])}"
+    message += f"Downloaded {count} new videos to playlist {v[0]}{generateLink(v[0])}"
 
 if not message:
     print("No updates found, existing.")
