@@ -42,7 +42,7 @@ def generateLink(playlist):
         "url": f"/e/playlists/{playlist}"
     }).content.decode()
     
-    return f'''\nhttps://ganer.xyz/comic/#{URL}\n'''
+    return f'''\nhttps://ganer.xyz/comic/#{URL}?json\n'''
 
 beforeList = getList()
 for p in [(downloader(i), i) for i in playlists]: waitDownload(*p)
