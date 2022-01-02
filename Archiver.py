@@ -42,7 +42,7 @@ def generateLink(playlist):
         "url": f"/e/playlists/{playlist}"
     }).content.decode()
     
-    return f'''\nhttps://ganer.xyz/comic/#{URL}?json\n'''
+    return f'''\nURL: {URL}\nComic: https://ganer.xyz/comic/#{URL}?json\n'''
 
 beforeList = getList()
 for p in [(downloader(i), i) for i in playlists]: waitDownload(*p)
@@ -52,7 +52,7 @@ message = ""
 for i, v in enumerate(beforeList):
     if not (count := afterList[i][1] - beforeList[i][1]):
         pass #continue
-    message += f"Downloaded {count} new videos to playlist {v[0]}{generateLink(v[0])}"
+    message += f"Downloaded {count} new videos to playlist {v[0]}{generateLink(v[0])}\n"
 
 if not message:
     print("No updates found, existing.")
