@@ -56,6 +56,8 @@ if not message:
     print("No updates found, existing.")
     exit()
 
+print(message)
+
 requests.post(config['discord_webhook_url'], data = {
     'Content-type': 'application/json',
     "username": "Joe",
