@@ -39,7 +39,7 @@ def generateLink(playlist):
     return requests.post("https://ganer.xyz/shortenURL", headers = {
         "localpath": "true",
         "access": access_token,
-        "url": f"/e/download/playlists/{playlist}"
+        "url": f"/e/playlists/{playlist}"
     }).content.decode() + ' '
 
 beforeList = getList()
@@ -50,13 +50,13 @@ message = ""
 for i, v in enumerate(beforeList):
     if not (count := afterList[i][1] - beforeList[i][1]):
         pass #continue
-    message += f"Downloaded {count} new videos to playlist {v[0]}{generateLink(v[0])}"
+    message += f"Downloaded {count} new videos to playlist {v[0]} {generateLink(v[0])}"
 
 if not message:
     print("No updates found, existing.")
     exit()
-
-print(message)
+else:
+    print(message)
 
 requests.post(config['discord_webhook_url'], data = {
     'Content-type': 'application/json',
