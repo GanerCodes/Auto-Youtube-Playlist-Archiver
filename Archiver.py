@@ -3,7 +3,8 @@ import os, re, sys, json, requests, subprocess
 
 config = json.load(open("config.json"))
 webhook_url = config["discord_webhook_url"]
-cookies_path = config['cookies']
+cookies_path = config["cookies"]
+access_token = config["access_token"] if "access_token" in config else None
 
 playlists = [[i, v, True] for i, v in config['audio_playlists'].items()] + [[i, v, False] for i, v in config['video_playlists'].items()]
 
@@ -31,13 +32,32 @@ def waitDownload(p, i):
     p.wait()
     print(f"Finished downloading playlist {i[0]}")
 
+def generateLink(playlist):
+    if not access_token:
+        return
+    
+    return ' ' + requests.post("https://ganer.xyz/shortenURL", headers = {
+        "localpath": "true",
+        "access": access_token,
+        "url": f"/e/download/playlists/{playlist}"
+    }).content.decode()
+
 beforeList = getList()
 for p in [(downloader(i), i) for i in playlists]: waitDownload(*p)
 afterList = getList()
+
+message = ""
+for i, v in enumerate(beforeList):
+    if not (count := afterList[i][1] - beforeList[i][1]):
+        pass #continue
+    message += f"Downloaded {count} new videos to playlist {v[0]}{generateLink(v[0])}"
+
+if not message: 
+    exit()
 
 requests.post(config['discord_webhook_url'], data = {
     'Content-type': 'application/json',
     "username": "Joe",
     "avatar_url": "https://upload.wikimedia.org/wikipedia/en/9/9a/Trollface_non-free.png",
-    "content": '\n'.join(f"Downloaded {afterList[i][1] - beforeList[i][1]} new videos to playlist {v[0]}" for i, v in enumerate(beforeList))
+    "content": message
 })
