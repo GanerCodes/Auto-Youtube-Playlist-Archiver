@@ -25,7 +25,7 @@ def downloader(i):
     return subprocess.Popen(
         ["yt-dlp", "--download-archive", f"{i[0]}/archive.txt", "--embed-thumbnail", "--cookies", cookies_path, "-ciwq"] + (
             ["-x", "-f", "bestaudio", "--audio-format", "mp3"] if i[2] else ["--recode-video", "mp4"]
-        ) + ["-o", f"{i[0]}/%(title)s_%(id)s.%(ext)s", i[1]]
+        ) + ["-o", f"{i[0]}/%(uploader)s_%(title)s_%(id)s.%(ext)s", i[1]]
     )
 
 def waitDownload(p, i):
