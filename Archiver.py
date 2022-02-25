@@ -51,12 +51,13 @@ afterList = getList()
 message = ""
 for i, v in enumerate(beforeList):
     if not (count := afterList[i][1] - beforeList[i][1]):
-        pass #continue
+        continue
     message += f"Downloaded {count} new videos to playlist {v[0]}{generateLink(v[0])}\n"
 
 if not message:
-    print("No updates found, existing.")
-    exit()
+    message = "No new videos found."
+    # print("No updates found, existing.")
+    # exit()
 else:
     print(message)
 
